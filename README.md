@@ -19,7 +19,7 @@ A container can be started with various parameters to make changes to the defaul
 ## Usage
 The container can be started either with `docker run` or `docker-compose`
 
-**Please make sure to choose a suitable directory for persistence before running the container and replace the placeholder "/path/to/storage" chosen here with it.**
+**Please note: It may initially take up to 5 minutes for the first files to load. It is not an error if no log output is displayed until then. Please make sure to choose a suitable directory for persistence before running the container and replace the placeholder "/path/to/storage" chosen here with it.**
 
 ### docker-compose (recommended)
 ````yaml
