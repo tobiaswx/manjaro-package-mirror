@@ -30,6 +30,10 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - 
+        name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
       -
         name: Build and push
         uses: docker/build-push-action@v2
@@ -39,6 +43,6 @@ jobs:
           push: true
           tags: |
             docker.io/twiese99/manjaro-package-mirror:latest
-            docker.io/twiese99/manjaro-package-mirror:${GITHUB_REF##*/}
+            docker.io/twiese99/manjaro-package-mirror:${{ steps.get_version.outputs.VERSION }}
             ghcr.io/twiese99/manjaro-package-mirror:latest
-            ghcr.io/twiese99/manjaro-package-mirror:${GITHUB_REF##*/}
+            ghcr.io/twiese99/manjaro-package-mirror:${{ steps.get_version.outputs.VERSION }}
