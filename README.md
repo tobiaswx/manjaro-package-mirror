@@ -1,5 +1,5 @@
 # ❗Important 17/02/2023
-For various personal and work-related reasons, I have not been able to maintain this project (and others that are currently set to "private") for almost 2 years. Now I have time again! Soon I will update the image and fix the build pipeline. Regular updates of the base image are planned for the future. More information will follow soon.
+For various personal and work-related reasons, I have not been able to maintain this project (and others that are currently set to "private") for almost 3 years. Now I have time again! Soon I will update the image and fix the build pipeline. Regular updates of the base image are planned for the future. More information will follow soon.
 
 # manjaro-package-mirror
 Docker container which mirrors manjaro packages and serves them via nginx
