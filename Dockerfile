@@ -1,4 +1,4 @@
-FROM docker.io/library/alpine:3.14
+FROM docker.io/library/alpine:3.19.1
 COPY nginx.conf /etc/nginx/http.d/default.conf
 COPY manjaro-mirror.sh /scripts/
 COPY init.sh /scripts/
