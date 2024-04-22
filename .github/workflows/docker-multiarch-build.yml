@@ -26,7 +26,11 @@ jobs:
         env:
           OUTPUT: CHANGELOG.md
           GITHUB_REPO: ${{ github.repository }}
-          
+
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+        
       - name: Commit Changelog
         run: |
           git config user.name 'github-actions[bot]'
@@ -34,7 +38,7 @@ jobs:
           set +e
           git add CHANGELOG.md
           git commit -m "Update changelog"
-          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git HEAD:cliff-changelog-${{ steps.get_version.outputs.VERSION }}
           
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -55,10 +59,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
-      - name: Get the version
-        id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
         
       - name: Build and push
         uses: docker/build-push-action@v5
