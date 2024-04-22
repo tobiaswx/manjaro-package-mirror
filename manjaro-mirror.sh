@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "`date` >> Start synchronization with ${SOURCE_MIRROR}"
+echo "$(date) >> Start synchronization with ${SOURCE_MIRROR}"
 
 set -e
 set -o pipefail
@@ -28,5 +28,4 @@ rsync -rtlvH --safe-links \
     "${SOURCE_MIRROR}" \
     "${TARGET}"
 
-echo "`date` >> Synchronization with ${SOURCE_MIRROR} completed"
-
+echo "$(date) >> Synchronization with ${SOURCE_MIRROR} completed"

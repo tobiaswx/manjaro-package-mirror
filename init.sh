@@ -9,6 +9,6 @@ nginx
 while :
 do
     bash /scripts/manjaro-mirror.sh
-    sleep ${SLEEP}
+    sleep "${SLEEP}"
 done
 
