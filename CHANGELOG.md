@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2024-04-22
+
+### 🚀 Features
+
+- Push also to Docker Hub
+- Integrated changelog generation in github actions
+
+### 🐛 Bug Fixes
+
+- Fix build pipeline
+- Try to commit in github actions with git-auto-commit-action
+
+### ⚙️ Miscellaneous Tasks
+
+- CHANGELOG.md and git-cliff configuration
+
 ## [1.2.1] - 2024-04-22
 
 ### 🐛 Bug Fixes
