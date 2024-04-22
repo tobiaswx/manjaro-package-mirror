@@ -17,28 +17,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
-      - name: Generate a changelog
-        uses: orhun/git-cliff-action@v3
-        with:
-          config: cliff.toml
-          args: --verbose
-        env:
-          OUTPUT: CHANGELOG.md
-          GITHUB_REPO: ${{ github.repository }}
 
       - name: Get the version
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-        
-      - name: Commit Changelog
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
-          set +e
-          git add CHANGELOG.md
-          git commit -m "Update changelog"
-          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git HEAD:cliff-changelog-${{ steps.get_version.outputs.VERSION }}
           
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -71,3 +53,18 @@ jobs:
             ghcr.io/${{ env.IMAGE_NAME }}:${{ steps.get_version.outputs.VERSION }}
             docker.io/${{ env.IMAGE_NAME }}:latest
             docker.io/${{ env.IMAGE_NAME }}:${{ steps.get_version.outputs.VERSION }}
+
+      - name: Generate a changelog
+        uses: orhun/git-cliff-action@v3
+        with:
+          config: cliff.toml
+          args: --verbose
+        env:
+          OUTPUT: CHANGELOG.md
+          GITHUB_REPO: ${{ github.repository }}
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Update changelog
+          branch: cliff-changelog-${{ steps.get_version.outputs.VERSION }}
+          create_branch: true
