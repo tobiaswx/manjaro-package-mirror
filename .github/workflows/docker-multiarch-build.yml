@@ -42,7 +42,5 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            docker.io/twiese99/manjaro-package-mirror:latest
-            docker.io/twiese99/manjaro-package-mirror:${{ steps.get_version.outputs.VERSION }}
-            ghcr.io/twiese99/manjaro-package-mirror:latest
-            ghcr.io/twiese99/manjaro-package-mirror:${{ steps.get_version.outputs.VERSION }}
+            ghcr.io/tobiaswx/manjaro-package-mirror:latest
+            ghcr.io/tobiaswx/manjaro-package-mirror:${{ steps.get_version.outputs.VERSION }}
