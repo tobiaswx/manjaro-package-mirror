@@ -3,8 +3,8 @@
 set -e
 set -o pipefail
 
-# Start monitoring
-/usr/sbin/node_exporter &
+# Start monitoring (using correct Alpine path)
+/usr/bin/node_exporter &
 
 # Start nginx with health endpoint
 nginx
