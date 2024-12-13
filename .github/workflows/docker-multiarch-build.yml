@@ -4,10 +4,17 @@ on:
   schedule:
     - cron: '0 1 * * *'  # Daily security scans
   push:
-    tags: "[1-9]+.[0-9]+.[0-9]+"
+    tags:
+      - "[1-9]+.[0-9]+.[0-9]+"
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+
+permissions:
+  contents: write
+  packages: write
+  issues: write
+  pull-requests: write
 
 env:
   REGISTRY: ghcr.io
@@ -99,7 +106,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           platforms: linux/amd64,linux/arm64
@@ -111,29 +118,35 @@ jobs:
 
       - name: Generate changelog
         if: github.event_name != 'pull_request'
-        uses: orhun/git-cliff-action@v3
+        uses: orhun/git-cliff-action@v4
+        id: git-cliff
         with:
           config: cliff.toml
-          args: --verbose
+          args: --verbose --tag ${{ steps.meta.outputs.version }}
         env:
           OUTPUT: CHANGELOG.md
-          GITHUB_REPO: ${{ github.repository }}
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - name: Commit and push changelog
         if: github.event_name != 'pull_request'
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: Update changelog
-          branch: cliff-changelog-${{ steps.meta.outputs.VERSION }}
-          create_branch: true
+          commit_message: 'docs: update changelog for ${{ steps.meta.outputs.version }}'
+          file_pattern: CHANGELOG.md
+          branch: main
+          push_options: '--force'
 
   notify:
     needs: build-and-push
     runs-on: ubuntu-latest
     if: always()
+    permissions:
+      issues: write
+      pull-requests: write
     steps:
       - name: Notify status
         uses: actions/github-script@v7
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { repo, owner } = context.repo;
             const run_id = context.runId;
