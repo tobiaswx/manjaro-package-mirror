@@ -2,6 +2,41 @@
 
 All notable changes to this project will be documented in this file.
 
+## [main] - 2024-12-13
+
+### 🚀 Features
+
+- *(monitoring)* Add prometheus metrics and health checks
+- *(nginx)* Add health and metrics endpoints
+- *(logging)* Implement log rotation and structured logging
+- *(ci)* Add dependabot and security scanning
+- *(ci)* Enhance CI pipeline with security and quality checks
+
+### 🐛 Bug Fixes
+
+- *(monitoring)* Correct node_exporter path
+- Pin package versions and update to Alpine 3.21.0
+- Add missing quotes in shell script
+- Update dependencies and fix github actions
+- Update workflow permissions and tag format
+- Add write permission for changelog commits
+
+### 🚜 Refactor
+
+- Reorganize project structure
+
+### 📚 Documentation
+
+- Enhance project documentation
+
+### 🎨 Styling
+
+- *(docker)* Improve Dockerfile based on best practices
+
+### ⚙️ Miscellaneous Tasks
+
+- Add .gitignore for IDE files
+
 ## [1.3.0] - 2024-04-22
 
 ### 🚀 Features
