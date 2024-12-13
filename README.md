@@ -1,64 +1,150 @@
-# manjaro-package-mirror
-Docker container which mirrors manjaro packages and serves them via nginx
+# Manjaro Package Mirror 🚀
 
-This image is based on the alpine image and uses rsync to synchronize the packages and nginx to deliver them
+[![Build Status](https://github.com/tobiaswx/manjaro-package-mirror/actions/workflows/docker-multiarch-build.yml/badge.svg)](https://github.com/tobiaswx/manjaro-package-mirror/actions/workflows/docker-multiarch-build.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Docker Pulls](https://img.shields.io/docker/pulls/tobiaswx/manjaro-package-mirror)
 
-## Supported Architectures
-The image is created for the **amd64** and **arm64** platforms and is available in the **Github Container Registry**.
+A Docker container that creates and maintains a local Manjaro Linux package mirror. It uses rsync for efficient synchronization and nginx for serving packages, with built-in monitoring and health checks.
 
-## Parameters
-A container can be started with various parameters to make changes to the default configuration, expose ports, and persist data. For example, `-p 8080:80` would expose port 80 inside the container for access from outside via port 8080. The following parameters are available for this image:
+## 🌟 Features
 
-| Parameter                                                            | Function                                                    |
-| -------------------------------------------------------------------- | ----------------------------------------------------------- |
-| `-p 8080:80`                                                         | Binds container port 80 to host port 8080                   |
-| `-v /path/to/storage:/srv/http/manjaro`                              | Persists the package repository data under /path/to/storage |
-| `-e SOURCE_MIRROR=rsync://mirrorservice.org/repo.manjaro.org/repos/` | Allows to use another mirror for synchronization            |
-| `-e SLEEP=6h`                                                        | Adjusts the pause time between synchronizations             |
+- **Efficient Syncing**: Uses rsync with configurable bandwidth limits
+- **Multi-Architecture Support**: Works on both AMD64 and ARM64 platforms
+- **Monitoring**: Built-in Prometheus metrics
+- **Health Checks**: Automated container health monitoring
+- **Performance**: Nginx-based package serving with auto-indexing
+- **Security**: Regular vulnerability scanning and updates
+- **Logging**: Structured logging with rotation
 
-## Recommended Rsync Mirrors (Source: wiki.manjaro.org)
+## 📋 Prerequisites
 
-Manjaro has provided a list of Rsync-capable mirrors at https://wiki.manjaro.org/index.php/Manjaro_Mirrors, which synchronize from the official Manjaro server. It's best to choose the one closest to you.
+- Docker Engine 20.10.0 or newer
+- At least 100GB of free disk space (for a full mirror)
+- Stable network connection
 
-| Region                  | URI                                               |
-|-------------------------|---------------------------------------------------|
-| Asia / Japan            | rsync://ftp.tsukuba.wide.ad.jp/manjaro            |
-| Europe / Germany        | rsync://ftp.halifax.rwth-aachen.de/manjaro/       |
-| Europe / Sweden         | rsync://ftp.lysator.liu.se/pub/manjaro/           |
-| Europe / Italy          | rsync://manjaro.mirror.garr.it/manjaro/           |
-| Europe / United Kingdom | rsync://mirrorservice.org/repo.manjaro.org/repos/ |
-| RU / Russian Federation | rsync://mirror.yandex.ru/mirrors/manjaro/         |
+## 🚀 Quick Start
 
-## Usage
-The container can be started either with `docker run` or `docker-compose`
+### Using Docker Compose (Recommended)
 
-**Please note: It may initially take up to 5 minutes for the first files to load. It is not an error if no log output is displayed until then. Please make sure to choose a suitable directory for persistence before running the container and replace the placeholder "/path/to/storage" chosen here with it.**
+```yaml
+version: "3.8"
 
-### docker-compose (recommended)
-````yaml
----
-version: "3.4"
 services:
   manjaro-mirror:
     container_name: manjaro-mirror
-    image: ghcr.io/tobiaswx/manjaro-package-mirror
+    image: ghcr.io/tobiaswx/manjaro-package-mirror:latest
     volumes:
       - /path/to/storage:/srv/http/manjaro
     ports:
-      - 8080:80
+      - "8080:80"
+      - "9100:9100"  # Prometheus metrics
+    environment:
+      - SOURCE_MIRROR=rsync://mirrorservice.org/repo.manjaro.org/repos/
+      - RSYNC_BWLIMIT=1000  # KB/s (0 for unlimited)
+      - SLEEP=6h
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 5m
+      timeout: 3s
+      retries: 3
     restart: unless-stopped
-````
+```
 
-### docker run
-````bash
+### Using Docker CLI
+
+```bash
 docker run -d \
   --name=manjaro-mirror \
   -p 8080:80 \
+  -p 9100:9100 \
   -v /path/to/storage:/srv/http/manjaro \
+  -e RSYNC_BWLIMIT=1000 \
+  -e SLEEP=6h \
   --restart unless-stopped \
-  ghcr.io/tobiaswx/manjaro-package-mirror
-````
+  ghcr.io/tobiaswx/manjaro-package-mirror:latest
+```
 
+## ⚙️ Configuration
 
+### Environment Variables
 
+| Variable | Description | Default | Required |
+|----------|-------------|---------|----------|
+| `SOURCE_MIRROR` | Rsync mirror URL | `rsync://mirrorservice.org/repo.manjaro.org/repos/` | No |
+| `SLEEP` | Time between sync attempts | `6h` | No |
+| `RSYNC_BWLIMIT` | Bandwidth limit in KB/s (0 for unlimited) | `0` | No |
+| `RSYNC_OPTS` | Additional rsync options | - | No |
+| `LOG_LEVEL` | Logging level (debug, info, warn, error) | `info` | No |
 
+### Volumes
+
+| Path | Description | Required |
+|------|-------------|----------|
+| `/srv/http/manjaro` | Mirror storage location | Yes |
+| `/var/log/manjaro-mirror` | Log files location | No |
+
+### Ports
+
+| Port | Description | Required |
+|------|-------------|----------|
+| 80 | HTTP server (nginx) | Yes |
+| 9100 | Prometheus metrics | No |
+
+## 📊 Monitoring
+
+### Health Checks
+
+The container includes built-in health checks accessible at `/health`. Configure your monitoring system to track this endpoint for service health.
+
+### Prometheus Metrics
+
+Access metrics at `:9100/metrics`. Available metrics include:
+- Mirror sync status
+- Disk usage
+- Sync duration
+- Error counts
+
+## 🔒 Security
+
+- Regular vulnerability scanning via Trivy
+- Automated dependency updates via Dependabot
+- Minimal base image (Alpine Linux)
+- Regular security patches
+
+## 📝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'feat: Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+### Commit Convention
+
+This project follows [Conventional Commits](https://www.conventionalcommits.org/):
+- `feat`: New features
+- `fix`: Bug fixes
+- `docs`: Documentation changes
+- `chore`: Routine tasks, maintenance
+- `refactor`: Code refactoring
+- `test`: Testing changes
+
+## 📜 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🤝 Support
+
+- Create a [GitHub Issue](https://github.com/tobiaswx/manjaro-package-mirror/issues) for bug reports, feature requests, or questions
+- Add a ⭐️ star on GitHub to support the project!
+
+## 📊 Project Status
+
+Actively maintained. See the [CHANGELOG](CHANGELOG.md) for recent updates.
+
+## 🙏 Acknowledgments
+
+- [Manjaro Linux](https://manjaro.org/) for the package repository
+- [Official Manjaro mirrors](https://wiki.manjaro.org/index.php/Manjaro_Mirrors) for providing reliable source mirrors
