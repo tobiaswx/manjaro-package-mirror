@@ -2,25 +2,25 @@ FROM docker.io/library/alpine:3.19.1
 
 # Install required packages
 RUN apk add --no-cache \
-    rsync \
-    nginx \
     bash \
-    prometheus-node-exporter \
+    curl \
     logrotate \
-    curl && \
+    nginx \
+    prometheus-node-exporter \
+    rsync && \
     mkdir /srv/http
 
 # Copy configuration files
 COPY nginx.conf /etc/nginx/http.d/default.conf
-COPY scripts/ /scripts/
-COPY config/ /config/
+COPY scripts/* /scripts/
+COPY config/logrotate.conf /etc/logrotate.d/manjaro-mirror
 
-# Set up log rotation
-COPY logrotate.conf /etc/logrotate.d/manjaro-mirror
+# Ensure scripts are executable
+RUN chmod +x /scripts/*.sh
 
 # Set up health check
 HEALTHCHECK --interval=5m --timeout=3s \
-  CMD curl -f http://localhost/health || exit 1
+  CMD ["curl", "-f", "http://localhost/health"]
 
 EXPOSE 80 9100
 VOLUME /srv/http/manjaro
