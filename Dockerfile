@@ -1,13 +1,13 @@
-FROM docker.io/library/alpine:3.19.1
+FROM docker.io/library/alpine:3.21.0
 
-# Install required packages
+# Install required packages with pinned versions
 RUN apk add --no-cache \
-    bash \
-    curl \
-    logrotate \
-    nginx \
-    prometheus-node-exporter \
-    rsync && \
+    bash=5.2.37-r0 \
+    curl=8.11.1-r0 \
+    logrotate=3.21.0-r1 \
+    nginx=1.26.2-r3 \
+    prometheus-node-exporter=1.8.2-r0 \
+    rsync=3.3.0-r0 && \
     mkdir /srv/http
 
 # Copy configuration files
