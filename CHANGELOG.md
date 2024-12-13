@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [main] - 2024-12-13
+## [1.4.0] - 2024-12-13
 
 ### 🚀 Features
 
@@ -28,6 +28,7 @@ All notable changes to this project will be documented in this file.
 ### 📚 Documentation
 
 - Enhance project documentation
+- Update changelog for main
 
 ### 🎨 Styling
 
