@@ -71,7 +71,7 @@ jobs:
     needs: [security-scan, lint]
     runs-on: ubuntu-latest
     permissions:
-      contents: read    # For checkout
+      contents: write   # Changed from 'read' to 'write' for changelog commits
       packages: write   # For pushing to GHCR
     steps:
       - name: Checkout
