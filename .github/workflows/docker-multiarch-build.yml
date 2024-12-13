@@ -111,7 +111,7 @@ jobs:
 
       - name: Generate changelog
         if: github.event_name != 'pull_request'
-        uses: orhun/git-cliff-action@v3
+        uses: orhun/git-cliff-action@v4
         with:
           config: cliff.toml
           args: --verbose
