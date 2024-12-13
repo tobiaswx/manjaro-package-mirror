@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  manjaro-mirror:
+    container_name: manjaro-mirror
+    image: ghcr.io/tobiaswx/manjaro-package-mirror
+    volumes:
+      - /path/to/storage:/srv/http/manjaro
+      - ./logs:/var/log/manjaro-mirror
+    ports:
+      - "8080:80"
+      - "9100:9100"  # Prometheus metrics
+    environment:
+      - SOURCE_MIRROR=rsync://mirrorservice.org/repo.manjaro.org/repos/
+      - SLEEP=6h
+      - RSYNC_BWLIMIT=1000
+      - LOG_LEVEL=info
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 5m
+      timeout: 3s
+      retries: 3
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
