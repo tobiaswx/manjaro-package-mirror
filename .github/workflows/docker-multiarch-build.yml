@@ -10,11 +10,13 @@ on:
   pull_request:
     branches: [ "main" ]
 
+# Top-level permissions used as default for all jobs
 permissions:
   contents: write
   packages: write
   issues: write
   pull-requests: write
+  security-events: write    # Required for uploading Trivy scan results
 
 env:
   REGISTRY: ghcr.io
@@ -23,6 +25,10 @@ env:
 jobs:
   security-scan:
     runs-on: ubuntu-latest
+    # Job-specific permissions override - this job only needs security-events
+    permissions:
+      security-events: write    # Required for github/codeql-action/upload-sarif
+      contents: read           # Required for actions/checkout
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -45,6 +51,8 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read    # Only needs read access for checkout
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -63,8 +71,8 @@ jobs:
     needs: [security-scan, lint]
     runs-on: ubuntu-latest
     permissions:
-      packages: write
-      contents: write
+      contents: read    # For checkout
+      packages: write   # For pushing to GHCR
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -140,8 +148,8 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
     permissions:
-      issues: write
-      pull-requests: write
+      issues: write         # Required for creating issue comments
+      pull-requests: write  # Required for creating PR comments
     steps:
       - name: Notify status
         uses: actions/github-script@v7
