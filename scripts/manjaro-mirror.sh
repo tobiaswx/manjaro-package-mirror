@@ -35,11 +35,11 @@ rsync_with_retry() {
     while [ $attempt -le $attempts ]; do
         if rsync -rtlvH --safe-links \
             --delete-after --progress \
-            -h ${QUIET} --timeout=600 --contimeout=120 -p \
+            -h "${QUIET}" --timeout=600 --contimeout=120 -p \
             --delay-updates --no-motd \
             --temp-dir="${TMP}" \
             --bwlimit="${BWLIMIT}" \
-            ${RSYNC_OPTS} \
+            "${RSYNC_OPTS}" \
             "${SOURCE_MIRROR}" \
             "${TARGET}"; then
             return 0
