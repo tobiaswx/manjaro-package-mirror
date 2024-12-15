@@ -2,11 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
-## [main] - 2024-12-14
+## [main] - 2024-12-15
 
 ### 📚 Documentation
 
 - Update changelog for 1.4.0
+- Update changelog for main
 
 ## [1.4.0] - 2024-12-13
 
