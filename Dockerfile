@@ -1,4 +1,4 @@
-FROM docker.io/library/alpine:3.21.0
+FROM docker.io/library/alpine:3.21.2
 
 # Install required packages with pinned versions
 RUN apk add --no-cache \
