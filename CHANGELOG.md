@@ -6,60 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### 📚 Documentation
 
-- Update changelog for 1.4.0
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
+- *(chore)* Changelog manually corrected
 
 ## [1.4.0] - 2024-12-13
 
