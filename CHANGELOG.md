@@ -2,11 +2,85 @@
 
 All notable changes to this project will be documented in this file.
 
-## [main] - 2025-02-06
+## [1.5.1] - 2025-02-08
+
+### 🐛 Bug Fixes
+
+- Remove daily scheduler and ignore apk version pinning in hadolint
+- Tune spellcheck to ignore certain rules
+
+### ⚙️ Miscellaneous Tasks
+
+- Temporary disable dependabot
+
+## [1.5.0] - 2025-02-08
+
+### 🐛 Bug Fixes
+
+- Always use latest alpine image of same major and latest package versions
+- Reformat rsync command to single line and add debug output
 
 ### 📚 Documentation
 
-- *(chore)* Changelog manually corrected
+- Update changelog for 1.4.0
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+- Update changelog for main
+
+### ⚙️ Miscellaneous Tasks
+
+- Changelog manually corrected
 
 ## [1.4.0] - 2024-12-13
 
