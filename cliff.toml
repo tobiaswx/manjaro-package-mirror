@@ -11,7 +11,7 @@ body = """
 {% endif %}\
 {% for group, commits in commits | group_by(attribute="group") %}
     ### {{ group | striptags | trim | upper_first }}
-    {% for commit in commits %}
+    {% for commit in commits | unique(attribute="message") %}
         - {% if commit.scope %}*({{ commit.scope }})* {% endif %}\
             {% if commit.breaking %}[**breaking**] {% endif %}\
             {{ commit.message | upper_first }}\
@@ -42,7 +42,6 @@ commit_parsers = [
   { message = "^chore|^ci", group = "<!-- 7 -->⚙️ Miscellaneous Tasks" },
   { body = ".*security", group = "<!-- 8 -->🛡️ Security" },
   { message = "^revert", group = "<!-- 9 -->◀️ Revert" },
-  {% for commit in commits | unique(attribute="message") %},
 ]
 protect_breaking_commits = false
 filter_commits = false
