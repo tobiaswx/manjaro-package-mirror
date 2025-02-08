@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [main] - 2025-02-08
+
+### 📚 Documentation
+
+- Update changelog for 1.5.1
+
+### ⚙️ Miscellaneous Tasks
+
+- Discard duplicate commits in changelog generation
+- Fix gitcliff config
+
 ## [1.5.1] - 2025-02-08
 
 ### 🐛 Bug Fixes
@@ -23,59 +34,6 @@ All notable changes to this project will be documented in this file.
 ### 📚 Documentation
 
 - Update changelog for 1.4.0
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
-- Update changelog for main
 - Update changelog for main
 
 ### ⚙️ Miscellaneous Tasks
