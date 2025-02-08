@@ -42,6 +42,7 @@ commit_parsers = [
   { message = "^chore|^ci", group = "<!-- 7 -->⚙️ Miscellaneous Tasks" },
   { body = ".*security", group = "<!-- 8 -->🛡️ Security" },
   { message = "^revert", group = "<!-- 9 -->◀️ Revert" },
+  {% for commit in commits | unique(attribute="message") %},
 ]
 protect_breaking_commits = false
 filter_commits = false
