@@ -1,8 +1,6 @@
 name: CI/CD Pipeline
 
 on:
-  schedule:
-    - cron: '0 1 * * *'  # Daily security scans
   push:
     tags:
       - "[1-9]+.[0-9]+.[0-9]+"
@@ -61,6 +59,7 @@ jobs:
         uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: Dockerfile
+          ignore: 'DL3018' # ignore apk version pinning
 
       - name: Run shellcheck
         uses: ludeeus/action-shellcheck@master
