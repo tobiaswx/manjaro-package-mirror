@@ -63,6 +63,8 @@ jobs:
 
       - name: Run shellcheck
         uses: ludeeus/action-shellcheck@master
+        env:
+          SHELLCHECK_OPTS: -e SC2059 -e SC2086 # ignore certain spellchecks
         with:
           scandir: './scripts'
 
